@@ -1,0 +1,20 @@
+version: "2"
+
+networks:
+    docker_network:
+        driver: bridge
+
+services:
+    www:
+        networks:
+            - docker_network
+        container_name: php73
+        build:
+            context: .docker
+#        restart: always
+        volumes:
+            - ./:/var/www/html
+            - ./.docker/apache.conf:/etc/apache2/sites-enabled/000-default.conf
+            - ./.docker/php.ini:/usr/local/etc/php/php.ini
+        ports:
+            - 8073:80
