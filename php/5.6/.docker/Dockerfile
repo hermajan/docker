@@ -24,7 +24,7 @@ RUN apt-get clean && apt-get update && apt-cache search php-mysql && apt-get ins
     libc-client-dev \
     libkrb5-dev && rm -r /var/lib/apt/lists/*
 
-# Install Memcached
+# Memcached
 RUN curl -L -o /tmp/memcached.tar.gz "https://github.com/php-memcached-dev/php-memcached/archive/2.2.0.tar.gz" \
     && mkdir -p /usr/src/php/ext/memcached \
     && tar -C /usr/src/php/ext/memcached -zxvf /tmp/memcached.tar.gz --strip 1 \
@@ -51,3 +51,6 @@ RUN docker-php-ext-install \
     imap
 
 RUN	service memcached restart
+
+# Composer	
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer

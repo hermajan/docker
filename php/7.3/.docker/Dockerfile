@@ -21,7 +21,7 @@ RUN apt-get clean && apt-get update && apt-cache search php-mysql && apt-get ins
     libicu-dev \
     g++
 
-# Install Memcached
+# Memcached
 RUN curl -L -o /tmp/memcached.tar.gz "https://api.github.com/repos/php-memcached-dev/php-memcached/tarball" \
     && mkdir -p /usr/src/php/ext/memcached \
     && tar -C /usr/src/php/ext/memcached -zxvf /tmp/memcached.tar.gz --strip 1 \
@@ -42,3 +42,17 @@ RUN docker-php-ext-install \
     pdo_mysql \
     mysqli \
     intl
+
+# Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer
+
+# Node.js and npm
+RUN rm -rf /var/lib/apt/lists/ && \
+    curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash -&& \
+    apt-get clean && apt-get update && apt-get install -y nodejs && \
+    npm install npm@latest -g
+
+# Yarn
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
+    apt-get update && apt-get install -y yarn

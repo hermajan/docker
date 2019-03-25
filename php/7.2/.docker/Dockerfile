@@ -21,7 +21,7 @@ RUN apt-get clean && apt-get update && apt-cache search php-mysql && apt-get ins
     libicu-dev \
     g++
 
-# Install Memcached
+# Memcached
 RUN curl -L -o /tmp/memcached.tar.gz "https://github.com/php-memcached-dev/php-memcached/archive/latest.tar.gz" \
     && mkdir -p /usr/src/php/ext/memcached \
     && tar -C /usr/src/php/ext/memcached -zxvf /tmp/memcached.tar.gz --strip 1 \
@@ -42,3 +42,6 @@ RUN docker-php-ext-install \
     pdo_mysql \
     mysqli \
     intl
+
+# Composer	
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer
