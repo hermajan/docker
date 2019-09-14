@@ -1,0 +1,43 @@
+version: "3.1"
+
+networks:
+    docker_network:
+        driver: bridge
+
+services:
+    mysql:
+        image: mysql:5.6
+        container_name: mysql
+        networks:
+            - docker_network
+        restart: always
+        ports:
+            - 3306:3306
+#        volumes:
+#            - ./mysql:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: 'heslo'
+            MYSQL_USER: 'user'
+            MYSQL_PASS: 'heslo'
+    
+    adminer:
+        image: adminer
+        container_name: adminer
+        networks:
+            - docker_network
+        restart: always
+        ports:
+            - 8061:8080
+    
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        container_name: phpmyadmin
+        networks:
+            - docker_network
+        restart: always
+        ports:
+            - 8062:80
+#        volumes:
+#            - ./phpmyadmin/sessions:/sessions
+        environment:
+            - PMA_ARBITRARY=1

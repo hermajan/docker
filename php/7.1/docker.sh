@@ -9,6 +9,7 @@ function help() {
 	echo "logs - list logs"
 	echo "list - list containers"
 	echo "restart - down and start container"
+	echo "ssh - login to container"
 }
 
 function start() {
@@ -34,6 +35,10 @@ function list() {
 function restart() {
 	stop
 	start
+}
+
+function ssh() {
+	docker exec -u root -it "php-7.1" bash
 }
 
 if [ "${COMMAND}" == "" ]; then

@@ -8,10 +8,10 @@ services:
     www:
         networks:
             - docker_network
-        container_name: php72
+        container_name: "php-7.2"
         build:
             context: .docker
-        restart: always
+#        restart: always
         volumes:
             - ./:/var/www/html
             - ./.docker/apache.conf:/etc/apache2/sites-enabled/000-default.conf
