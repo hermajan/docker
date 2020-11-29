@@ -19,6 +19,7 @@ RUN apt-get clean && apt-get update && apt-cache search php-mysql && apt-get ins
 	libssl-dev \
 	libzip-dev \
 	libicu-dev \
+	libxml2-dev \
 	g++
 
 # Memcached
@@ -41,7 +42,10 @@ RUN docker-php-ext-install \
 	pdo \
 	pdo_mysql \
 	mysqli \
-	intl
+	intl \
+	xml \
+	xmlwriter \
+	soap
 
 # Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer

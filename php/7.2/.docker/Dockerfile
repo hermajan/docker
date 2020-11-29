@@ -13,13 +13,14 @@ RUN apt-get clean && apt-get update && apt-cache search php-mysql && apt-get ins
 	libfreetype6-dev \
 	libpng-dev \
 	libjpeg62-turbo-dev \
-	mysql-client \
+	default-mysql-client \
 	zip \
 	wget \
 	linux-libc-dev \
 	libssl-dev \
 	libzip-dev \
 	libicu-dev \
+	libxml2-dev \
 	g++
 
 # Memcached
@@ -42,7 +43,20 @@ RUN docker-php-ext-install \
 	pdo \
 	pdo_mysql \
 	mysqli \
-	intl
+	intl \
+	xml \
+	xmlwriter \
+	soap
 
 # Composer	
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer
+
+# Node.js and npm
+RUN echo "Package: *\nPin: origin deb.nodesource.com\nPin-Priority: 600" > "/etc/apt/preferences.d/nodesource" && sudo apt-cache policy nodejs
+RUN rm -rf /var/lib/apt/lists/ && \
+    curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -&& \
+    apt-get clean && apt-get update && apt-get install -y nodejs && \
+    npm install npm@latest -g && \
+	npm install bower -g && \
+    npm install gulp-cli -g
+

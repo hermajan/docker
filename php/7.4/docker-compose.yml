@@ -8,7 +8,7 @@ services:
     www:
         networks:
             - docker_network
-        container_name: "php-7.2"
+        container_name: "php-7.4"
         hostname: "docker-php"
         build:
             context: .docker
@@ -18,4 +18,4 @@ services:
             - ./.docker/apache.conf:/etc/apache2/sites-enabled/000-default.conf
             - ./.docker/php.ini:/usr/local/etc/php/php.ini
         ports:
-            - 8072:80
+            - 8074:80

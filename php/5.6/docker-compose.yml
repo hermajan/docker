@@ -1,4 +1,4 @@
-version: "2"
+version: "3.1"
 
 networks:
     docker_network:
@@ -9,6 +9,7 @@ services:
         networks:
             - docker_network
         container_name: "php-5.6"
+        hostname: "docker-php"
         build:
             context: .docker
 #        restart: always

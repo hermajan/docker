@@ -10,11 +10,26 @@ services:
         container_name: mysql
         networks:
             - docker_network
-        restart: always
+        restart: on-failure
         ports:
             - 3306:3306
 #        volumes:
 #            - ./mysql:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: 'heslo'
+            MYSQL_USER: 'user'
+            MYSQL_PASS: 'heslo'
+    
+    mariadb:
+        image: mariadb
+        container_name: mariadb
+        networks:
+            - docker_network
+        restart: on-failure
+        ports:
+            - 3307:3306
+#        volumes:
+#            - ./mariadb:/var/lib/mysql
         environment:
             MYSQL_ROOT_PASSWORD: 'heslo'
             MYSQL_USER: 'user'
@@ -34,7 +49,7 @@ services:
         container_name: phpmyadmin
         networks:
             - docker_network
-        restart: always
+        restart: on-failure
         ports:
             - 8062:80
 #        volumes:
