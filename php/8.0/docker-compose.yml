@@ -1,0 +1,21 @@
+version: "3.1"
+
+networks:
+    docker_network:
+        driver: bridge
+
+services:
+    www:
+        networks:
+            - docker_network
+        container_name: "php-8.0"
+        hostname: "docker-php"
+        build:
+            context: .docker
+#        restart: always
+        volumes:
+            - ./:/var/www/html
+            - ./.docker/apache.conf:/etc/apache2/sites-enabled/000-default.conf
+            - ./.docker/php.ini:/usr/local/etc/php/php.ini
+        ports:
+            - 8080:80
